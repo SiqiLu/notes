@@ -1,0 +1,8 @@
+{
+  "plugins": [
+    "remark-preset-lint-recommended",
+    "remark-frontmatter",
+    ["remark-lint-list-item-indent", "one"],
+    ["remark-lint-maximum-line-length", false]
+  ]
+}
