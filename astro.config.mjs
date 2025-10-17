@@ -38,6 +38,27 @@ export default defineConfig({
 					},
 					link: '/fixing-ssh-agent-in-non-interactive-shells/'
 				},
+				{
+					label: '2025 Responsive Device Matrix',
+					translations: {
+						'zh-CN': '2025 响应式设备矩阵',
+					},
+					link: '/device-matrix-2025/'
+				},
+				{
+					label: 'Astro Responsive Image Specification',
+					translations: {
+						'zh-CN': 'Astro 响应式图片方案',
+					},
+					link: '/astro-responsive-image-specification/'
+				},
+				{
+					label: 'Astro Responsive Image Quick Reference',
+					translations: {
+						'zh-CN': 'Astro 响应式图片快速参考手册',
+					},
+					link: '/astro-responsive-image-quick-reference/'
+				},
 			],
 		}),
 		sitemap({

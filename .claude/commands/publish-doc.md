@@ -88,11 +88,11 @@ You are tasked with processing raw documentation from the `./tmp/` directory and
      - Never leave unfixed errors without attempting resolution
 
 10. **Verification**
-   - Confirm both EN and ZH versions are created
-   - Confirm sidebar is updated (for new documents)
-   - Confirm source document renamed with timestamp
-   - Confirm quality checks passed
-   - List the created files for user review
+    - Confirm both EN and ZH versions are created
+    - Confirm sidebar is updated (for new documents)
+    - Confirm source document renamed with timestamp
+    - Confirm quality checks passed
+    - List the created files for user review
 
 ## Output Format
 
