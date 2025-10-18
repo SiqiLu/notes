@@ -10,7 +10,7 @@ You are tasked with processing raw documentation from the `./tmp/` directory and
    - Check `./tmp/` directory for markdown files (\*.md)
    - Exclude files ending with `:Zone.Identifier`
    - If multiple documents found, ask user which to process
-   - If a document appears to be already processed (check if same name exists in `./src/content/docs/en/` OR if filename contains timestamp pattern `-YYYYMMDD`), confirm with user whether to reprocess
+   - If a document appears to be already processed (check if same name exists in `./src/content/docs/` OR if filename contains timestamp pattern `-YYYYMMDD`), confirm with user whether to reprocess
    - If user confirms reprocessing: overwrite existing EN/ZH files and update `lastUpdated` field to current date
 
 2. **Review and sanitize** (CRITICAL)

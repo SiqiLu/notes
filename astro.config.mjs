@@ -59,6 +59,13 @@ export default defineConfig({
 					},
 					link: '/astro-responsive-image-quick-reference/'
 				},
+				{
+					label: 'Chrome DevTools MCP Architecture Analysis',
+					translations: {
+						'zh-CN': 'Chrome DevTools MCP 架构分析',
+					},
+					link: '/chrome-devtools-mcp-architecture/'
+				},
 			],
 		}),
 		sitemap({
