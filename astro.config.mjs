@@ -66,6 +66,13 @@ export default defineConfig({
 					},
 					link: '/chrome-devtools-mcp-architecture/'
 				},
+				{
+					label: 'Configuring Chrome DevTools MCP for Codex in WSL',
+					translations: {
+						'zh-CN': '为 Codex 配置 Chrome DevTools MCP(WSL 环境)',
+					},
+					link: '/configuring-chrome-devtools-mcp-for-codex-in-wsl/'
+				},
 			],
 		}),
 		sitemap({
