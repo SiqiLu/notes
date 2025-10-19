@@ -6,12 +6,27 @@ You are tasked with processing raw documentation from the `./tmp/` directory and
 
 ## Workflow
 
-1. **Scan for documents**
+1. **Scan for documents and determine processing mode**
    - Check `./tmp/` directory for markdown files (\*.md)
    - Exclude files ending with `:Zone.Identifier`
-   - If multiple documents found, ask user which to process
-   - If a document appears to be already processed (check if same name exists in `./src/content/docs/` OR if filename contains timestamp pattern `-YYYYMMDD`), confirm with user whether to reprocess
-   - If user confirms reprocessing: overwrite existing EN/ZH files and update `lastUpdated` field to current date
+   - Classify documents as:
+     - **Unprocessed**: No `-YYYYMMDD` timestamp AND no similar document found in `./src/content/docs/` root directory
+     - **Processed**: Has `-YYYYMMDD` timestamp OR similar document exists in `./src/content/docs/` root
+
+   - **If unprocessed documents found:**
+     - Prioritize processing new documents
+     - If multiple unprocessed documents exist, list them with numbered options and ask user to select one
+     - Process exactly ONE document per task
+
+   - **If all documents are processed:**
+     - List all processed documents with numbered options
+     - Ask user: "All documents have been processed. Would you like to reprocess any? Please select a number:"
+     - If user confirms reprocessing: overwrite existing EN/ZH files and update `lastUpdated` field to current date
+
+   - **Document similarity check:**
+     - Don't rely only on exact filename matches
+     - Check for similar content or related filenames (e.g., `wsl-chrome-setup.md` might match `chrome-devtools-setup.md`)
+     - When in doubt, read the first few lines of both documents to compare content
 
 2. **Review and sanitize** (CRITICAL)
    - Review the document for any sensitive information
@@ -42,7 +57,7 @@ You are tasked with processing raw documentation from the `./tmp/` directory and
      - 3-7 tags recommended
 
 5. **Create English version**
-   - Save to `src/content/docs/en/<filename>.md`
+   - Save to `src/content/docs/<filename>.md` (root directory, not en/ folder)
    - Use a descriptive, URL-friendly filename (lowercase, hyphens for spaces)
    - Ensure proper frontmatter format
 
@@ -99,7 +114,7 @@ You are tasked with processing raw documentation from the `./tmp/` directory and
 After processing, provide a summary:
 
 - ✅ Document sanitized and reviewed
-- ✅ English version created: `src/content/docs/en/<filename>.md`
+- ✅ English version created: `src/content/docs/<filename>.md`
 - ✅ Chinese version created: `src/content/docs/zh/<filename>.md`
 - ✅ Sidebar updated in `astro.config.mjs` (for new documents)
 - ✅ Source document renamed: `./tmp/<filename>-YYYYMMDD.md`
@@ -119,27 +134,29 @@ After processing, provide a summary:
 
 ### Workflow A: Processing a New Document
 
-1. Scan `./tmp/` for unprocessed markdown files (no timestamp, not in `./src/content/docs/en/`)
-2. Review and sanitize sensitive information
-3. Optimize content for Starlight (remove TOC, verify formatting)
-4. Generate frontmatter with `lastUpdated` from original or current date
-5. Create English version in `src/content/docs/en/<filename>.md`
-6. Create Chinese translation in `src/content/docs/zh/<filename>.md`
-7. Add entry to sidebar in `astro.config.mjs`
-8. Rename source document to `./tmp/<filename>-YYYYMMDD.md`
-9. Run `npm run fix` to auto-fix formatting issues
-10. Run `npm run check` to verify quality standards
-11. Verify all files created and report to user
+1. Scan `./tmp/` for unprocessed markdown files (no timestamp AND not in `./src/content/docs/` root)
+2. If multiple unprocessed documents found, list with numbered options and ask user to select
+3. Review and sanitize sensitive information
+4. Optimize content for Starlight (remove TOC, verify formatting)
+5. Generate frontmatter with `lastUpdated` from original or current date
+6. Create English version in `src/content/docs/<filename>.md` (root directory)
+7. Create Chinese translation in `src/content/docs/zh/<filename>.md`
+8. Add entry to sidebar in `astro.config.mjs`
+9. Rename source document to `./tmp/<filename>-YYYYMMDD.md`
+10. Run `npm run fix` to auto-fix formatting issues
+11. Run `npm run check` to verify quality standards
+12. Verify all files created and report to user
 
 ### Workflow B: Reprocessing an Existing Document
 
-1. Detect document is already processed (same name in `./src/content/docs/en/` OR has `-YYYYMMDD` timestamp)
-2. Confirm with user whether to reprocess
-3. If confirmed:
+1. Detect all documents are processed (have `-YYYYMMDD` timestamp OR similar document exists in `./src/content/docs/` root)
+2. List all processed documents with numbered options
+3. Ask user: "All documents have been processed. Would you like to reprocess any? Please select a number:"
+4. If user confirms reprocessing:
    - Review and sanitize the updated content
    - Optimize content for Starlight
    - Generate frontmatter with `lastUpdated` set to **current date**
-   - **Overwrite** existing `src/content/docs/en/<filename>.md`
+   - **Overwrite** existing `src/content/docs/<filename>.md` (root directory)
    - **Overwrite** existing `src/content/docs/zh/<filename>.md` with fresh translation
    - Sidebar entry already exists, **no update needed**
    - Update source document timestamp: `./tmp/<filename>-YYYYMMDD.md` (new date)
